@@ -1,28 +1,21 @@
 # Katherine R. Henry — Portfolio
 
-A single-page portfolio with a Frutiger Aero / early-2000s tech aesthetic, built from static HTML, CSS, and JavaScript.
+A retro 90s portfolio styled as a Windows 95 desktop with early-web touches. Includes an interactive breadboard with draggable components and wire connections.
 
 ## Local preview
-
-Open `index.html` in a browser, or run a simple server:
 
 ```bash
 python3 -m http.server 8080
 ```
 
-Then visit [http://localhost:8080](http://localhost:8080).
+Visit [http://localhost:8080](http://localhost:8080).
 
-## GitHub Pages deployment
+## Features
 
-1. Push this repo to GitHub.
-2. Go to **Settings → Pages**.
-3. Set **Source** to `main` branch, `/ (root)`.
-4. Your site will be live at `https://<username>.github.io/katherine-henry-portfolio/`.
+- Windows 95 desktop with draggable windows, Start menu, and taskbar
+- Visitor counter, marquee, and classic link styling
+- **PCB Display** — green circuit board with LED dot-matrix name (KATHERINE / HENRY), SMD resistors, copper traces, and an OLED with a waving pixel character
 
-## Structure
+## GitHub Pages
 
-- `index.html` — page content and sections
-- `css/style.css` — layout and components
-- `css/aero.css` — Frutiger Aero visual effects
-- `js/main.js` — navigation, scroll reveal, mobile menu
-- `assets/resume.pdf` — downloadable resume
+Push to GitHub and enable Pages on the `main` branch, `/ (root)`.

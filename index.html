@@ -3,287 +3,499 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Katherine R. Henry — Computer Engineering portfolio. University of Minnesota.">
+  <meta name="description" content="Katherine R. Henry — Computer Engineering portfolio.">
   <title>Katherine R. Henry | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/aero.css">
+  <link rel="stylesheet" href="css/retro.css">
 </head>
-<body>
-  <div class="bubble-layer" aria-hidden="true">
-    <span class="bubble"></span>
-    <span class="bubble"></span>
-    <span class="bubble"></span>
-    <span class="bubble"></span>
-    <span class="bubble"></span>
-    <span class="bubble"></span>
-    <span class="bubble"></span>
-    <span class="bubble"></span>
+<body class="booting">
+  <div class="boot-screen" id="bootScreen" aria-live="polite">
+    <div class="boot-phase boot-bios" id="bootBios">
+      <p class="boot-brand">HENRY-PC</p>
+      <p class="boot-sub">Portfolio BIOS v2026</p>
+      <pre class="boot-log" id="bootLog"></pre>
+      <span class="boot-cursor" id="bootCursor">_</span>
+    </div>
+    <div class="boot-phase boot-win95 hidden" id="bootWin95">
+      <div class="boot-splash">
+        <div class="boot-clouds"></div>
+        <p class="boot-win-title">Microsoft<sup>®</sup> Windows<span>95</span></p>
+        <p class="boot-win-sub">Starting Windows 95<span class="boot-dots"></span></p>
+        <div class="boot-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+          <div class="boot-progress-bar" id="bootProgressBar"></div>
+        </div>
+      </div>
+    </div>
+    <p class="boot-skip">Click or press any key to skip</p>
   </div>
 
-  <div class="nature-horizon" aria-hidden="true"></div>
-
-  <header class="nav-dock" id="nav">
-    <div class="nav-inner glass-panel">
-      <a href="#hero" class="nav-logo">KH</a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <nav class="nav-links" id="navLinks">
-        <a href="#about" class="nav-link">About</a>
-        <a href="#education" class="nav-link">Education</a>
-        <a href="#skills" class="nav-link">Skills</a>
-        <a href="#projects" class="nav-link">Projects</a>
-        <a href="#experience" class="nav-link">Experience</a>
-        <a href="#contact" class="nav-link">Contact</a>
-      </nav>
+  <div class="desktop" id="desktop">
+    <div class="visitor-counter win95-widget">
+      <span class="counter-label">Visitors:</span>
+      <span id="visitorCount">000042</span>
     </div>
-  </header>
 
-  <main>
-    <section id="hero" class="hero section">
-      <div class="hero-content glass-panel reveal">
-        <p class="hero-greeting">Welcome</p>
-        <h1>Katherine R. Henry</h1>
-        <p class="hero-title">Computer Engineering Student</p>
-        <p class="hero-sub">University of Minnesota &middot; Minneapolis, MN</p>
-        <p class="hero-tagline">Building at the intersection of hardware, software, and neuroscience.</p>
-        <div class="hero-actions">
-          <a href="#projects" class="btn-glossy">View Projects</a>
-          <a href="assets/resume.pdf" class="btn-glossy btn-secondary" download>Download Resume</a>
+    <div class="desktop-icons">
+      <button class="desktop-icon" data-window="about">
+        <span class="icon-img icon-about"></span>
+        <span class="icon-label">About Me</span>
+      </button>
+      <button class="desktop-icon" data-window="projects">
+        <span class="icon-img icon-projects"></span>
+        <span class="icon-label">Projects</span>
+      </button>
+      <button class="desktop-icon" data-window="experience">
+        <span class="icon-img icon-exp"></span>
+        <span class="icon-label">Experience</span>
+      </button>
+      <button class="desktop-icon" data-window="education">
+        <span class="icon-img icon-edu"></span>
+        <span class="icon-label">Education</span>
+      </button>
+      <button class="desktop-icon" data-window="contact">
+        <span class="icon-img icon-mail"></span>
+        <span class="icon-label">Contact</span>
+      </button>
+      <button class="desktop-icon" data-window="breadboard">
+        <span class="icon-img icon-pcb"></span>
+        <span class="icon-label">PCB</span>
+      </button>
+      <a class="desktop-icon" href="assets/resume.pdf" download>
+        <span class="icon-img icon-resume"></span>
+        <span class="icon-label">Resume.pdf</span>
+      </a>
+    </div>
+
+    <div class="desktop-fun-icons">
+      <button class="desktop-icon" data-window="mycomputer">
+        <span class="icon-img icon-mycomputer"></span>
+        <span class="icon-label">My Computer</span>
+      </button>
+      <button class="desktop-icon" data-window="recycle">
+        <span class="icon-img icon-recycle"></span>
+        <span class="icon-label">Recycle Bin</span>
+      </button>
+      <button class="desktop-icon" data-window="tamagotchi">
+        <span class="icon-img icon-tama"></span>
+        <span class="icon-label">Tamagotchi.exe</span>
+      </button>
+      <button class="desktop-icon" data-window="netscape">
+        <span class="icon-img icon-netscape"></span>
+        <span class="icon-label">Netscape</span>
+      </button>
+      <button class="desktop-icon" data-window="solitaire">
+        <span class="icon-img icon-solitaire"></span>
+        <span class="icon-label">Solitaire</span>
+      </button>
+      <button class="desktop-icon" data-window="cdrom">
+        <span class="icon-img icon-cdrom"></span>
+        <span class="icon-label">Portfolio CD</span>
+      </button>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="win95-window" id="win-about" data-window="about" style="top:40px;left:80px;width:420px;">
+      <div class="titlebar" data-drag="win-about">
+        <span class="titlebar-text">About Me — Notepad</span>
+        <div class="titlebar-controls">
+          <button class="title-btn minimize" data-action="minimize" aria-label="Minimize">_</button>
+          <button class="title-btn maximize" aria-label="Maximize">□</button>
+          <button class="title-btn close" data-action="close" aria-label="Close">×</button>
         </div>
       </div>
-      <div class="hero-orb" aria-hidden="true"></div>
-    </section>
-
-    <section id="about" class="section">
-      <div class="container">
-        <h2 class="section-title reveal">About</h2>
-        <div class="glass-panel about-card reveal">
+      <div class="window-body">
+        <div class="notepad-content">
+          <p class="blink">*** WELCOME ***</p>
+          <h2>Katherine R. Henry</h2>
+          <p><strong>Computer Engineering Student</strong><br>University of Minnesota · Minneapolis, MN</p>
+          <hr>
           <p>
-            I'm a Computer Engineering student at the University of Minnesota's College of Science
-            and Engineering, pursuing a minor in Neuroscience. I blend digital design, embedded
-            systems, and programming with a curiosity for how technology connects to the natural world.
+            I'm a Computer Engineering student at the College of Science and Engineering.
+            I blend digital design, embedded systems, and programming with a curiosity
+            for how technology connects to the real world.
           </p>
           <p>
-            As a member of the Society of Women in Engineering, I actively engage with the local
-            engineering community through mentorship, seminars, and professional events.
+            Member of the Society of Women in Engineering — mentorship, seminars,
+            and professional events.
           </p>
+          <p class="skills-line"><strong>Skills:</strong> Python · Java · C · Verilog · Digital Design · Embedded Systems</p>
         </div>
       </div>
-    </section>
+    </div>
 
-    <section id="education" class="section">
-      <div class="container">
-        <h2 class="section-title reveal">Education</h2>
-        <div class="glass-panel education-card reveal">
-          <div class="education-header">
-            <div>
-              <h3>University of Minnesota</h3>
-              <p class="education-sub">College of Science and Engineering &middot; Minneapolis, MN</p>
-            </div>
-            <span class="education-badge">May 2027</span>
+    <!-- PROJECTS -->
+    <div class="win95-window" id="win-projects" data-window="projects" style="top:60px;left:200px;width:520px;">
+      <div class="titlebar" data-drag="win-projects">
+        <span class="titlebar-text">Folder — My Projects</span>
+        <div class="titlebar-controls">
+          <button class="title-btn minimize" data-action="minimize">_</button>
+          <button class="title-btn maximize">□</button>
+          <button class="title-btn close" data-action="close">×</button>
+        </div>
+      </div>
+      <div class="window-body">
+        <article class="project-entry">
+          <div class="project-icon-sm tama"></div>
+          <div>
+            <h3>Tamagotchi Virtual Pet System <span class="tag">EMBEDDED</span></h3>
+            <p class="meta">PIC24 · SSD1306 OLED · Embedded C</p>
+            <ul>
+              <li>Designed and programmed a Tamagotchi-style virtual pet using a PIC24 microcontroller and SSD1306 OLED display.</li>
+              <li>Featured animated sprites, menu-driven UI, health management, and button-based interaction.</li>
+              <li>Implemented timer-driven state transitions; strengthened skills in embedded C, state machines, hardware interfacing, and real-time systems.</li>
+            </ul>
           </div>
-          <ul class="education-details">
-            <li><strong>Degree:</strong> Bachelor of Science, Computer Engineering</li>
-            <li><strong>GPA:</strong> 3.0</li>
-            <li><strong>Minor:</strong> Neuroscience</li>
+        </article>
+        <hr>
+        <article class="project-entry">
+          <div class="project-icon-sm volt"></div>
+          <div>
+            <h3>Digital Voltmeter with ADC Sampling <span class="tag">EMBEDDED</span></h3>
+            <p class="meta">PIC24FJ64GA002 · 10-bit ADC · LCD</p>
+            <ul>
+              <li>Developed a digital voltmeter using the PIC24FJ64GA002 and a 10-bit ADC.</li>
+              <li>Measured analog voltages with sample averaging to reduce noise; displayed results on an LCD.</li>
+              <li>Gained experience configuring peripherals, implementing timing systems, and converting raw sensor data into meaningful measurements.</li>
+            </ul>
+          </div>
+        </article>
+        <hr>
+        <article class="project-entry">
+          <div class="project-icon-sm chess"></div>
+          <div>
+            <h3>Array Chess <span class="tag">JAVA</span></h3>
+            <p class="meta">Sep 2024 – Apr 2025 · Algorithms &amp; Data Structures</p>
+            <ul>
+              <li>Working chess game in Java using arrays and inheritance.</li>
+              <li>Multiple functions per piece for smooth gameplay.</li>
+              <li>Debugged and polished for final submission.</li>
+            </ul>
+          </div>
+        </article>
+        <hr>
+        <article class="project-entry">
+          <div class="project-icon-sm sensor"></div>
+          <div>
+            <h3>TMP36 Sensor Design <span class="tag">VERILOG</span></h3>
+            <p class="meta">Jan 2025 – May 2025 · Digital System Design</p>
+            <ul>
+              <li>Signal processing peripheral on a Basys3 board.</li>
+              <li>XADC module reads analog voltage from TMP36 sensor.</li>
+              <li>Verified with Verilog testing and simulated waveforms.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <div class="win95-window" id="win-experience" data-window="experience" style="top:80px;left:120px;width:480px;">
+      <div class="titlebar" data-drag="win-experience">
+        <span class="titlebar-text">Folder — Experience</span>
+        <div class="titlebar-controls">
+          <button class="title-btn minimize" data-action="minimize">_</button>
+          <button class="title-btn maximize">□</button>
+          <button class="title-btn close" data-action="close">×</button>
+        </div>
+      </div>
+      <div class="window-body">
+        <div class="exp-entry">
+          <strong>TECDP Intern</strong> <span class="date">May 2026 – Present</span>
+          <p class="org">The Cigna Group · Global Information Security</p>
+          <ul>
+            <li>Interning in the Global Information Security department.</li>
           </ul>
-          <div class="coursework">
-            <h4>Relevant Coursework</h4>
-            <div class="skill-chips">
-              <span class="chip">Calc I–II</span>
-              <span class="chip">Intro to Microcontrollers</span>
-              <span class="chip">Computing &amp; Programming</span>
-              <span class="chip">Computer Design Systems</span>
-              <span class="chip">Analog &amp; Digital Electronics</span>
-              <span class="chip">Neural Engineering</span>
+        </div>
+        <hr>
+        <div class="exp-entry">
+          <strong>Treasurer</strong> <span class="date">Feb 2026 – Present</span>
+          <p class="org">Women and Gender Minorities in Mathematics @ UMN · Full-time</p>
+          <ul>
+            <li>Administered club budget and ensured financial accountability across all activities.</li>
+            <li>Tracked and documented all transactions, improving transparency and organization.</li>
+            <li>Coordinated funding for events and initiatives in collaboration with executive team.</li>
+            <li>Supported fundraising efforts and financial planning strategies.</li>
+          </ul>
+        </div>
+        <hr>
+        <div class="exp-entry">
+          <strong>Ecolab Development Summit</strong> <span class="date">Aug 2025</span>
+          <p class="org">Ecolab · Saint Paul, MN</p>
+          <ul><li>Two-day summit on environmental mission and engineering initiatives.</li></ul>
+        </div>
+        <hr>
+        <div class="exp-entry">
+          <strong>Restaurant Server &amp; Support</strong> <span class="date">Nov 2023 – Present</span>
+          <p class="org">Graduate Hotel by Hilton · Minneapolis, MN</p>
+          <ul><li>High-volume shifts, cross-training, resolved tech system issues.</li></ul>
+        </div>
+        <hr>
+        <div class="exp-entry">
+          <strong>Server</strong> <span class="date">May 2024 – Present</span>
+          <p class="org">McCormicks · Wayzata, MN</p>
+          <ul><li>POS systems, order management, customer experience.</li></ul>
+        </div>
+        <hr>
+        <div class="exp-entry">
+          <strong>Society of Women in Engineering</strong> <span class="date">Oct 2023 – Present</span>
+          <p class="org">University of Minnesota</p>
+          <ul><li>Mentorship program, monthly seminars, professional events.</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDUCATION -->
+    <div class="win95-window" id="win-education" data-window="education" style="top:100px;left:260px;width:400px;">
+      <div class="titlebar" data-drag="win-education">
+        <span class="titlebar-text">Folder — Education</span>
+        <div class="titlebar-controls">
+          <button class="title-btn minimize" data-action="minimize">_</button>
+          <button class="title-btn maximize">□</button>
+          <button class="title-btn close" data-action="close">×</button>
+        </div>
+      </div>
+      <div class="window-body">
+        <h2>University of Minnesota</h2>
+        <p>College of Science and Engineering · Minneapolis, MN</p>
+        <ul class="plain-list">
+          <li><strong>Degree:</strong> B.S. Computer Engineering</li>
+          <li><strong>GPA:</strong> 3.0</li>
+          <li><strong>Graduation:</strong> Winter 2027</li>
+        </ul>
+        <p><strong>Coursework:</strong> Calc I–II, Microcontrollers, Computing &amp; Programming, Computer Design Systems, Analog &amp; Digital Electronics</p>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="win95-window" id="win-contact" data-window="contact" style="top:120px;left:340px;width:420px;">
+      <div class="titlebar" data-drag="win-contact">
+        <span class="titlebar-text">Contact — Dial-Up</span>
+        <div class="titlebar-controls">
+          <button class="title-btn minimize" data-action="minimize">_</button>
+          <button class="title-btn maximize">□</button>
+          <button class="title-btn close" data-action="close">×</button>
+        </div>
+      </div>
+      <div class="window-body contact-body">
+        <p>Let's connect!</p>
+        <p>📧 <a href="mailto:henry794@umn.edu">henry794@umn.edu</a></p>
+        <p>☎ <a href="tel:+19523340357">(952) 334-0357</a></p>
+        <p>📄 <a href="assets/resume.pdf" download>Download Resume.pdf</a></p>
+        <p class="dim">She/Her · Minneapolis, MN</p>
+        <div class="marquee-wrap">
+          <div class="marquee-track">
+            <span>★ Thanks for visiting! Reach out anytime — henry794@umn.edu ★ ~~ Katherine</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FUN DESKTOP WINDOWS -->
+    <div class="win95-window" id="win-mycomputer" data-window="mycomputer" style="top:80px;left:180px;width:340px;">
+      <div class="titlebar" data-drag="win-mycomputer">
+        <span class="titlebar-text">My Computer</span>
+        <div class="titlebar-controls">
+          <button class="title-btn minimize" data-action="minimize">_</button>
+          <button class="title-btn maximize">□</button>
+          <button class="title-btn close" data-action="close">×</button>
+        </div>
+      </div>
+      <div class="window-body">
+        <div class="explorer-grid">
+          <button class="explorer-item" data-window="about"><span class="icon-img icon-about"></span><span>About Me (C:)</span></button>
+          <button class="explorer-item" data-window="projects"><span class="icon-img icon-projects"></span><span>Projects (D:)</span></button>
+          <button class="explorer-item" data-window="breadboard"><span class="icon-img icon-pcb"></span><span>PCB Display</span></button>
+          <a class="explorer-item" href="assets/resume.pdf" download><span class="icon-img icon-resume"></span><span>Resume.pdf</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="win95-window" id="win-recycle" data-window="recycle" style="top:140px;left:220px;width:320px;">
+      <div class="titlebar" data-drag="win-recycle">
+        <span class="titlebar-text">Recycle Bin</span>
+        <div class="titlebar-controls">
+          <button class="title-btn minimize" data-action="minimize">_</button>
+          <button class="title-btn maximize">□</button>
+          <button class="title-btn close" data-action="close">×</button>
+        </div>
+      </div>
+      <div class="window-body notepad-content">
+        <p class="fun-msg">🗑️ The Recycle Bin is empty.</p>
+        <p class="dim">Nothing deleted yet — this portfolio is too fresh to throw away!</p>
+      </div>
+    </div>
+
+    <div class="win95-window" id="win-tamagotchi" data-window="tamagotchi" style="top:100px;left:260px;width:280px;">
+      <div class="titlebar" data-drag="win-tamagotchi">
+        <span class="titlebar-text">Tamagotchi.exe</span>
+        <div class="titlebar-controls">
+          <button class="title-btn minimize" data-action="minimize">_</button>
+          <button class="title-btn maximize">□</button>
+          <button class="title-btn close" data-action="close">×</button>
+        </div>
+      </div>
+      <div class="window-body notepad-content fun-center">
+        <div class="tama-pixel" aria-hidden="true"></div>
+        <p><strong>* beep *</strong></p>
+        <p>Your virtual pet is happy!</p>
+        <p class="dim">Built on PIC24 + SSD1306 — see Projects for the real thing.</p>
+        <button class="win95-btn" data-window="projects">Open Projects</button>
+      </div>
+    </div>
+
+    <div class="win95-window" id="win-netscape" data-window="netscape" style="top:60px;left:300px;width:380px;">
+      <div class="titlebar" data-drag="win-netscape">
+        <span class="titlebar-text">Netscape Navigator — Best Viewed in 800×600</span>
+        <div class="titlebar-controls">
+          <button class="title-btn minimize" data-action="minimize">_</button>
+          <button class="title-btn maximize">□</button>
+          <button class="title-btn close" data-action="close">×</button>
+        </div>
+      </div>
+      <div class="window-body notepad-content">
+        <p class="blink">*** YOU ARE NOW ONLINE ***</p>
+        <p>Welcome to the Information Superhighway!</p>
+        <p>🏠 You are here: <strong>katherine-henry-portfolio</strong></p>
+        <p class="dim">Best viewed with Netscape Navigator 4.0 · 56k modem recommended</p>
+        <hr>
+        <p>🔗 Hot links:</p>
+        <ul class="plain-list">
+          <li><button class="link-btn" data-window="about">About Me</button></li>
+          <li><button class="link-btn" data-window="contact">Contact</button></li>
+          <li><a href="mailto:henry794@umn.edu">Email Katherine</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="win95-window" id="win-solitaire" data-window="solitaire" style="top:160px;left:340px;width:300px;">
+      <div class="titlebar" data-drag="win-solitaire">
+        <span class="titlebar-text">Solitaire</span>
+        <div class="titlebar-controls">
+          <button class="title-btn minimize" data-action="minimize">_</button>
+          <button class="title-btn maximize">□</button>
+          <button class="title-btn close" data-action="close">×</button>
+        </div>
+      </div>
+      <div class="window-body notepad-content fun-center">
+        <div class="solitaire-cards" aria-hidden="true">
+          <span class="card card-red">A♥</span>
+          <span class="card card-black">K♠</span>
+          <span class="card card-red">7♦</span>
+        </div>
+        <p><strong>You win!</strong></p>
+        <p class="dim">Just kidding — back to reviewing my projects instead? 😄</p>
+        <button class="win95-btn" data-window="projects">View Projects</button>
+      </div>
+    </div>
+
+    <div class="win95-window" id="win-cdrom" data-window="cdrom" style="top:120px;left:380px;width:320px;">
+      <div class="titlebar" data-drag="win-cdrom">
+        <span class="titlebar-text">Portfolio CD — Audio CD</span>
+        <div class="titlebar-controls">
+          <button class="title-btn minimize" data-action="minimize">_</button>
+          <button class="title-btn maximize">□</button>
+          <button class="title-btn close" data-action="close">×</button>
+        </div>
+      </div>
+      <div class="window-body notepad-content">
+        <p><strong>Now playing:</strong></p>
+        <ol class="cd-tracklist">
+          <li>01 — Dial-Up Connection.wav</li>
+          <li>02 — Soldering Iron Sizzle.mp3</li>
+          <li>03 — Oscilloscope Dreams.mid</li>
+          <li>04 — PIC24 Lullaby.ogg</li>
+        </ol>
+        <p class="dim">🔊 Volume: ████████░░</p>
+      </div>
+    </div>
+
+    <!-- PCB DISPLAY -->
+    <div class="win95-window window-pcb" id="win-breadboard" data-window="breadboard" style="top:40px;left:480px;width:400px;">
+      <div class="titlebar" data-drag="win-breadboard">
+        <span class="titlebar-text">PCB Display — Rev 1.0</span>
+        <div class="titlebar-controls">
+          <button class="title-btn minimize" data-action="minimize">_</button>
+          <button class="title-btn maximize">□</button>
+          <button class="title-btn close" data-action="close">×</button>
+        </div>
+      </div>
+      <div class="window-body pcb-body">
+        <div class="pcb-board">
+          <div class="pcb-silk">KH-2026 · Katherine R. Henry</div>
+          <svg class="pcb-traces" id="pcbTraces" viewBox="0 0 520 260" preserveAspectRatio="xMidYMid meet" aria-hidden="true"></svg>
+          <div class="pcb-layout">
+            <div class="pcb-name-block">
+              <div class="pcb-name-line" id="pcbLine1" aria-label="KATHERINE"></div>
+              <div class="pcb-name-line pcb-name-line-mid" id="pcbLine2" aria-label="R"></div>
+              <div class="pcb-resistors" id="pcbResistors" aria-hidden="true"></div>
+              <div class="pcb-name-line" id="pcbLine3" aria-label="HENRY"></div>
+            </div>
+            <div class="oled-module oled-on-pcb">
+              <div class="oled-bezel">
+                <div class="oled-screen">
+                  <div class="oled-pixel-art" id="oledArt"></div>
+                  <p class="oled-text">WELCOME!</p>
+                </div>
+                <span class="oled-label">SSD1306</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
 
-    <section id="skills" class="section">
-      <div class="container">
-        <h2 class="section-title reveal">Skills</h2>
-        <div class="skills-grid reveal">
-          <div class="glass-panel skill-group">
-            <h3>Languages</h3>
-            <div class="skill-chips">
-              <span class="chip chip-accent">Python</span>
-              <span class="chip chip-accent">Java</span>
-              <span class="chip chip-accent">C</span>
-              <span class="chip chip-accent">Verilog</span>
-            </div>
-          </div>
-          <div class="glass-panel skill-group">
-            <h3>Engineering</h3>
-            <div class="skill-chips">
-              <span class="chip chip-accent">Digital Design</span>
-              <span class="chip chip-accent">Electrical Work</span>
-              <span class="chip chip-accent">Signal Processing</span>
-              <span class="chip chip-accent">Embedded Systems</span>
-            </div>
-          </div>
-          <div class="glass-panel skill-group">
-            <h3>Professional</h3>
-            <div class="skill-chips">
-              <span class="chip chip-accent">Project Management</span>
-              <span class="chip chip-accent">Technical Writing</span>
-              <span class="chip chip-accent">Debugging</span>
-              <span class="chip chip-accent">Team Collaboration</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <button class="panic-btn" id="panicBtn" type="button" title="Do not press">
+      <span class="panic-btn-dome">PANIC</span>
+      <span class="panic-btn-base"></span>
+    </button>
+  </div>
 
-    <section id="projects" class="section">
-      <div class="container">
-        <h2 class="section-title reveal">Projects</h2>
-        <div class="projects-grid">
-          <article class="project-card glass-panel reveal">
-            <div class="project-thumb project-thumb-chess" aria-hidden="true">
-              <span class="project-icon">♟</span>
-            </div>
-            <div class="project-body">
-              <div class="project-meta">
-                <span class="project-tag">Java</span>
-                <span class="project-date">Sep 2024 – Apr 2024</span>
-              </div>
-              <h3>Array Chess</h3>
-              <p class="project-course">Introduction to Algorithms and Data Structures</p>
-              <ul class="project-details">
-                <li>Planned and designed a working chess game in Java using arrays and inheritance.</li>
-                <li>Each board section and piece had multiple functions for smooth gameplay.</li>
-                <li>Carefully debugged errors to polish the overall project.</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="project-card glass-panel reveal">
-            <div class="project-thumb project-thumb-sensor" aria-hidden="true">
-              <span class="project-icon">◉</span>
-            </div>
-            <div class="project-body">
-              <div class="project-meta">
-                <span class="project-tag">Verilog</span>
-                <span class="project-date">Jan 2025 – May 2025</span>
-              </div>
-              <h3>TMP36 Sensor Design</h3>
-              <p class="project-course">Introduction to Digital System Design</p>
-              <ul class="project-details">
-                <li>Designed a signal processing peripheral implemented on a Basys3 board.</li>
-                <li>Used an XADC module to read analog voltage from a TMP36 and compute averages.</li>
-                <li>Verified results with Verilog testing and simulated waveforms.</li>
-              </ul>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="experience" class="section">
-      <div class="container">
-        <h2 class="section-title reveal">Experience</h2>
-        <div class="timeline">
-          <article class="timeline-item glass-panel reveal">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-header">
-                <h3>Ecolab Development Summit</h3>
-                <span class="timeline-date">Aug 2025</span>
-              </div>
-              <p class="timeline-org">Ecolab &middot; Saint Paul, MN</p>
-              <ul>
-                <li>Attended a two-day development summit after being invited through the application process.</li>
-                <li>Enhanced knowledge of Ecolab's environmental mission, engineering initiatives, and growth opportunities.</li>
-                <li>Participated in technology-based seminars.</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="timeline-item glass-panel reveal">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-header">
-                <h3>Restaurant Server &amp; Support</h3>
-                <span class="timeline-date">Nov 2023 – Present</span>
-              </div>
-              <p class="timeline-org">Graduate Hotel by Hilton &middot; Minneapolis, MN</p>
-              <ul>
-                <li>Multitasked during high-volume shifts to maintain high service standards.</li>
-                <li>Cross-trained in multiple roles to support staff workflow.</li>
-                <li>Resolved technological system issues to keep service running smoothly.</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="timeline-item glass-panel reveal">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-header">
-                <h3>Server</h3>
-                <span class="timeline-date">May 2024 – Present</span>
-              </div>
-              <p class="timeline-org">McCormicks &middot; Wayzata, MN</p>
-              <ul>
-                <li>Delivered curated, positive customer experiences.</li>
-                <li>Operated POS systems and managed orders in a fast-paced environment.</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="timeline-item glass-panel reveal">
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-header">
-                <h3>Society of Women in Engineering</h3>
-                <span class="timeline-date">Oct 2023 – Present</span>
-              </div>
-              <p class="timeline-org">University of Minnesota &middot; Minneapolis, MN</p>
-              <ul>
-                <li>Attend monthly meetings, events, and seminars with local companies.</li>
-                <li>Participated in the mentorship program with a professional mentor.</li>
-                <li>Built relationships at professional engineering and technology events.</li>
-              </ul>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="section contact-section">
-      <div class="container">
-        <h2 class="section-title reveal">Contact</h2>
-        <div class="glass-panel contact-card reveal">
-          <p class="contact-intro">Let's connect — I'm always open to engineering opportunities and collaborations.</p>
-          <div class="contact-links">
-            <a href="mailto:henry794@umn.edu" class="contact-link">
-              <span class="contact-label">Email</span>
-              <span>henry794@umn.edu</span>
-            </a>
-            <a href="tel:+19523340357" class="contact-link">
-              <span class="contact-label">Phone</span>
-              <span>(952) 334-0357</span>
-            </a>
-            <a href="assets/resume.pdf" class="contact-link" download>
-              <span class="contact-label">Resume</span>
-              <span>Download PDF</span>
-            </a>
-          </div>
-          <p class="contact-pronouns">She/Her &middot; Minneapolis, MN</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <p>&copy; 2026 Katherine R. Henry. Built with Frutiger Aero vibes.</p>
+  <!-- TASKBAR -->
+  <footer class="taskbar">
+    <button class="start-btn" id="startBtn">
+      <span class="start-logo"></span> Start
+    </button>
+    <div class="start-menu hidden" id="startMenu">
+      <div class="start-menu-header">Windows<span>95</span></div>
+      <button class="start-item" data-window="about">📄 About Me</button>
+      <button class="start-item" data-window="projects">📁 Projects</button>
+      <button class="start-item" data-window="experience">📁 Experience</button>
+      <button class="start-item" data-window="education">🎓 Education</button>
+      <button class="start-item" data-window="contact">✉ Contact</button>
+      <button class="start-item" data-window="breadboard">🔧 PCB Display</button>
+      <hr class="start-divider">
+      <a class="start-item" href="assets/resume.pdf" download>💾 Resume.pdf</a>
+      <hr class="start-divider">
+      <button class="start-item" id="startShutdown">🛑 Shut Down...</button>
+    </div>
+    <div class="taskbar-windows" id="taskbarWindows"></div>
+    <div class="taskbar-tray">
+      <span class="tray-text">🔊</span>
+      <span class="clock" id="clock">12:00 PM</span>
+    </div>
   </footer>
 
+  <div class="shutdown-overlay hidden" id="shutdownOverlay">
+    <p>It's now safe to turn off your computer.</p>
+    <button class="win95-btn" id="shutdownOk">OK</button>
+  </div>
+
+  <div class="panic-bsod hidden" id="panicBsod" role="alertdialog" aria-labelledby="panicBsodTitle">
+    <div class="bsod-inner">
+      <p class="bsod-sad">:(</p>
+      <p id="panicBsodTitle">A problem has been detected and Windows has been shut down to prevent damage to your portfolio.</p>
+      <p>PANIC_EXCEPTION_IN_PORTFOLIO</p>
+      <p>If this is the first time you've seen this error, don't worry — it's just a button.</p>
+      <p class="bsod-tech">*** STOP: 0x000000PANIC (0xKATHERINE, 0xHENRY, 0x00000000, 0x00000000)</p>
+      <button class="win95-btn bsod-btn" id="panicOk">OK — Resume Normal Operation</button>
+    </div>
+  </div>
+
+  <script src="js/boot.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/breadboard.js"></script>
 </body>
 </html>

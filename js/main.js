@@ -1,102 +1,264 @@
 (function () {
   "use strict";
 
-  const nav = document.getElementById("nav");
-  const navToggle = document.getElementById("navToggle");
-  const navLinks = document.getElementById("navLinks");
-  const sections = document.querySelectorAll("section[id]");
-  const navAnchors = document.querySelectorAll(".nav-link");
+  const windows = document.querySelectorAll(".win95-window");
+  const desktopIcons = document.querySelectorAll(".desktop-icon[data-window]");
+  const startBtn = document.getElementById("startBtn");
+  const startMenu = document.getElementById("startMenu");
+  const startItems = document.querySelectorAll(".start-item[data-window]");
+  const taskbarWindows = document.getElementById("taskbarWindows");
+  const clock = document.getElementById("clock");
+  const visitorCount = document.getElementById("visitorCount");
+  const shutdownBtn = document.getElementById("startShutdown");
+  const shutdownOverlay = document.getElementById("shutdownOverlay");
+  const shutdownOk = document.getElementById("shutdownOk");
+  const desktop = document.getElementById("desktop");
+  const panicBtn = document.getElementById("panicBtn");
+  const panicBsod = document.getElementById("panicBsod");
+  const panicOk = document.getElementById("panicOk");
 
-  /* Mobile nav toggle */
-  navToggle.addEventListener("click", function () {
-    const isOpen = navLinks.classList.toggle("open");
-    navToggle.classList.toggle("open", isOpen);
-    navToggle.setAttribute("aria-expanded", isOpen);
-  });
+  let zIndex = 100;
+  let openWindows = new Set();
+  let panicking = false;
 
-  /* Close mobile nav on link click */
-  navAnchors.forEach(function (link) {
-    link.addEventListener("click", function () {
-      navLinks.classList.remove("open");
-      navToggle.classList.remove("open");
-      navToggle.setAttribute("aria-expanded", "false");
+  /* Visitor counter */
+  (function initCounter() {
+    if (!visitorCount) return;
+    let count = parseInt(localStorage.getItem("visitorCount") || "41", 10);
+    count += 1;
+    localStorage.setItem("visitorCount", String(count));
+    visitorCount.textContent = String(count).padStart(6, "0");
+  })();
+
+  /* Clock */
+  function updateClock() {
+    if (!clock) return;
+    const now = new Date();
+    let h = now.getHours();
+    const m = String(now.getMinutes()).padStart(2, "0");
+    const ampm = h >= 12 ? "PM" : "AM";
+    h = h % 12 || 12;
+    clock.textContent = h + ":" + m + " " + ampm;
+  }
+
+  updateClock();
+  setInterval(updateClock, 30000);
+
+  function focusWindow(id) {
+    const win = document.getElementById("win-" + id);
+    if (!win) return;
+
+    windows.forEach(function (w) {
+      w.classList.remove("focused");
+    });
+
+    win.classList.add("focused");
+    win.style.zIndex = String(++zIndex);
+    updateTaskbar();
+  }
+
+  function openWindow(id) {
+    const win = document.getElementById("win-" + id);
+    if (!win) return;
+
+    win.classList.add("open");
+    win.classList.remove("minimized");
+    openWindows.add(id);
+    focusWindow(id);
+    updateTaskbar();
+  }
+
+  function closeWindow(id) {
+    const win = document.getElementById("win-" + id);
+    if (!win) return;
+
+    win.classList.remove("open", "focused", "minimized");
+    openWindows.delete(id);
+    updateTaskbar();
+  }
+
+  function minimizeWindow(id) {
+    const win = document.getElementById("win-" + id);
+    if (!win) return;
+
+    win.classList.add("minimized");
+    win.classList.remove("focused");
+    updateTaskbar();
+  }
+
+  function updateTaskbar() {
+    if (!taskbarWindows) return;
+    taskbarWindows.innerHTML = "";
+
+    openWindows.forEach(function (id) {
+      const win = document.getElementById("win-" + id);
+      if (!win) return;
+
+      const btn = document.createElement("button");
+      btn.className = "taskbar-btn";
+      if (win.classList.contains("focused") && !win.classList.contains("minimized")) {
+        btn.classList.add("active");
+      }
+      const titleEl = win.querySelector(".titlebar-text");
+      btn.textContent = titleEl ? titleEl.textContent : id;
+      btn.addEventListener("click", function () {
+        if (win.classList.contains("minimized")) {
+          win.classList.remove("minimized");
+          focusWindow(id);
+        } else if (win.classList.contains("focused")) {
+          minimizeWindow(id);
+        } else {
+          focusWindow(id);
+        }
+      });
+      taskbarWindows.appendChild(btn);
+    });
+  }
+
+  desktopIcons.forEach(function (icon) {
+    icon.addEventListener("dblclick", function () {
+      openWindow(this.dataset.window);
+    });
+    icon.addEventListener("click", function () {
+      desktopIcons.forEach(function (i) { i.classList.remove("selected"); });
+      this.classList.add("selected");
     });
   });
 
-  /* Smooth scroll with nav offset */
-  navAnchors.forEach(function (anchor) {
-    anchor.addEventListener("click", function (e) {
+  document.querySelectorAll(".explorer-item[data-window], .link-btn[data-window], .win95-btn[data-window]").forEach(function (btn) {
+    btn.addEventListener("click", function (e) {
       e.preventDefault();
-      const targetId = this.getAttribute("href").slice(1);
-      const target = document.getElementById(targetId);
-      if (target) {
-        const offset = nav.offsetHeight + 16;
-        const top = target.getBoundingClientRect().top + window.scrollY - offset;
-        window.scrollTo({ top: top, behavior: "smooth" });
-      }
+      e.stopPropagation();
+      openWindow(this.dataset.window);
     });
   });
 
-  /* Nav scroll state */
-  window.addEventListener("scroll", function () {
-    nav.classList.toggle("scrolled", window.scrollY > 40);
-  }, { passive: true });
+  startItems.forEach(function (item) {
+    item.addEventListener("click", function () {
+      openWindow(this.dataset.window);
+      startMenu.classList.add("hidden");
+      startBtn.classList.remove("active");
+    });
+  });
 
-  /* Active nav link on scroll */
-  function updateActiveNav() {
-    const scrollPos = window.scrollY + nav.offsetHeight + 80;
-    let current = "";
+  startBtn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    startMenu.classList.toggle("hidden");
+    startBtn.classList.toggle("active");
+  });
 
-    sections.forEach(function (section) {
-      if (section.offsetTop <= scrollPos) {
-        current = section.getAttribute("id");
-      }
+  document.addEventListener("click", function () {
+    startMenu.classList.add("hidden");
+    startBtn.classList.remove("active");
+  });
+
+  startMenu.addEventListener("click", function (e) {
+    e.stopPropagation();
+  });
+
+  windows.forEach(function (win) {
+    win.addEventListener("mousedown", function () {
+      focusWindow(win.dataset.window);
     });
 
-    navAnchors.forEach(function (link) {
-      link.classList.toggle("active", link.getAttribute("href") === "#" + current);
+    win.querySelectorAll('[data-action="close"]').forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        closeWindow(win.dataset.window);
+      });
+    });
+
+    win.querySelectorAll('[data-action="minimize"]').forEach(function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        minimizeWindow(win.dataset.window);
+      });
+    });
+  });
+
+  /* Draggable windows */
+  document.querySelectorAll("[data-drag]").forEach(function (titlebar) {
+    const winId = titlebar.dataset.drag;
+    const win = document.getElementById(winId);
+    if (!win) return;
+
+    let dragging = false;
+    let startX, startY, startLeft, startTop;
+
+    titlebar.addEventListener("mousedown", function (e) {
+      if (e.target.closest(".title-btn")) return;
+      dragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      startLeft = win.offsetLeft;
+      startTop = win.offsetTop;
+      e.preventDefault();
+    });
+
+    document.addEventListener("mousemove", function (e) {
+      if (!dragging) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      win.style.left = Math.max(0, startLeft + dx) + "px";
+      win.style.top = Math.max(0, startTop + dy) + "px";
+    });
+
+    document.addEventListener("mouseup", function () {
+      dragging = false;
+    });
+  });
+
+  shutdownBtn.addEventListener("click", function () {
+    shutdownOverlay.classList.remove("hidden");
+    startMenu.classList.add("hidden");
+  });
+
+  shutdownOk.addEventListener("click", function () {
+    shutdownOverlay.classList.add("hidden");
+  });
+
+  function triggerPanic() {
+    if (panicking || document.body.classList.contains("booting")) return;
+    panicking = true;
+    document.body.classList.add("panic-mode");
+    panicBsod.classList.remove("hidden");
+    startMenu.classList.add("hidden");
+    startBtn.classList.remove("active");
+  }
+
+  function endPanic() {
+    if (!panicking) return;
+    panicking = false;
+    document.body.classList.remove("panic-mode");
+    panicBsod.classList.add("hidden");
+  }
+
+  if (panicBtn) {
+    panicBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      triggerPanic();
     });
   }
 
-  window.addEventListener("scroll", updateActiveNav, { passive: true });
-  updateActiveNav();
-
-  /* Scroll reveal via Intersection Observer */
-  const revealEls = document.querySelectorAll(".reveal");
-
-  if ("IntersectionObserver" in window) {
-    const observer = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
-    );
-
-    revealEls.forEach(function (el) {
-      observer.observe(el);
-    });
-  } else {
-    revealEls.forEach(function (el) {
-      el.classList.add("visible");
-    });
+  if (panicOk) {
+    panicOk.addEventListener("click", endPanic);
   }
 
-  /* Subtle hero parallax */
-  const hero = document.getElementById("hero");
-  const heroOrb = document.querySelector(".hero-orb");
+  document.addEventListener("keydown", function (e) {
+    if (panicking && e.key === "Escape") {
+      endPanic();
+    }
+  });
 
-  if (hero && heroOrb) {
-    window.addEventListener("scroll", function () {
-      const rect = hero.getBoundingClientRect();
-      if (rect.bottom > 0) {
-        const shift = window.scrollY * 0.15;
-        heroOrb.style.transform = "translateY(" + shift + "px)";
-      }
-    }, { passive: true });
-  }
+  desktop.addEventListener("click", function (e) {
+    if (e.target === desktop) {
+      document.querySelectorAll(".desktop-icon").forEach(function (i) { i.classList.remove("selected"); });
+    }
+  });
+
+  /* Open About + Breadboard after boot sequence */
+  window.addEventListener("portfolio:boot-complete", function () {
+    openWindow("about");
+    openWindow("breadboard");
+  });
 })();

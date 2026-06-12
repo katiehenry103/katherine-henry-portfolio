@@ -1,0 +1,119 @@
+/* Win95 chrome — titlebars, buttons, widgets */
+
+.titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 2px 2px 4px;
+  background: linear-gradient(90deg, var(--title-blue), var(--title-active));
+  color: #fff;
+  font-weight: bold;
+  font-size: 11px;
+  cursor: default;
+  user-select: none;
+}
+
+.win95-window.focused .titlebar {
+  background: linear-gradient(90deg, var(--title-active), #00a2ff);
+}
+
+.win95-window:not(.focused) .titlebar {
+  background: linear-gradient(90deg, #808080, #b0b0b0);
+  color: #dfdfdf;
+}
+
+.titlebar-text {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.titlebar-controls {
+  display: flex;
+  gap: 2px;
+}
+
+.title-btn {
+  width: 16px;
+  height: 14px;
+  font-family: "Marlett", var(--font-ui);
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 12px;
+  padding: 0;
+  background: var(--win-gray);
+  border: 2px outset #808080;
+  cursor: pointer;
+  color: #000;
+}
+
+.title-btn:active {
+  border-style: inset;
+}
+
+.win95-btn {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  padding: 4px 12px;
+  background: var(--win-gray);
+  border: 2px outset #808080;
+  cursor: pointer;
+}
+
+.win95-btn:active {
+  border-style: inset;
+}
+
+.win95-widget {
+  background: var(--win-gray);
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  box-shadow: 1px 1px 0 #000;
+}
+
+.part-led { display: flex; justify-content: center; align-items: flex-end; }
+.part-resistor { display: flex; align-items: center; justify-content: center; }
+.part-ic { display: flex; align-items: center; justify-content: center; }
+.part-tmp36 { display: flex; justify-content: center; }
+.part-jumper { display: flex; align-items: center; justify-content: center; }
+
+.part-preview.part-led::before {
+  content: "";
+  width: 8px;
+  height: 10px;
+  background: #d32f2f;
+  border-radius: 50% 50% 30% 30%;
+  border: 1px solid #888;
+}
+
+.part-preview.part-resistor::before {
+  content: "";
+  width: 28px;
+  height: 6px;
+  background: linear-gradient(90deg, #888, #d4a017, #333, #d4a017, #888);
+}
+
+.part-preview.part-ic::before {
+  content: "";
+  width: 10px;
+  height: 28px;
+  background: #1a1a2e;
+  border: 1px solid #555;
+}
+
+.part-preview.part-tmp36::before {
+  content: "";
+  width: 8px;
+  height: 12px;
+  background: #37474f;
+  border-radius: 1px 1px 3px 3px;
+}
+
+.part-preview.part-jumper::before {
+  content: "";
+  width: 20px;
+  height: 3px;
+  background: #d32f2f;
+  border-radius: 1px;
+}
